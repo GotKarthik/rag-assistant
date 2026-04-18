@@ -31,9 +31,9 @@ export function useChat() {
     setIsLoading(true);
     setError(null);
 
-    // Simple heuristic for routing to summary
-    const lowerQ = question.toLowerCase();
-    const isSummaryReq = ['summarize', 'summary', 'tldr', 'overview'].some(kw => lowerQ.includes(kw));
+    // Simple heuristic for routing to summary (only check first 20 chars to avoid false positives in large copy-pastes)
+    const lowerQ = question.toLowerCase().trim();
+    const isSummaryReq = ['summarize', 'summary', 'tldr', 'give me an overview'].some(kw => lowerQ.substring(0, 30).includes(kw));
 
     try {
       if (isSummaryReq) {
