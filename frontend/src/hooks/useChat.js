@@ -6,7 +6,7 @@ export function useChat() {
     {
       id: 'welcome',
       role: 'ai',
-      content: 'Hello! I am your AI Research Assistant. Upload some PDF documents, and ask me questions or ask for a summary!',
+      content: 'Hello! I am your AI Research Assistant. Upload some PDF documents, and ask me questions! (Type `/summarize` to get a full document summary)',
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,9 +31,8 @@ export function useChat() {
     setIsLoading(true);
     setError(null);
 
-    // Simple heuristic for routing to summary (only check first 20 chars to avoid false positives in large copy-pastes)
-    const lowerQ = question.toLowerCase().trim();
-    const isSummaryReq = ['summarize', 'summary', 'tldr', 'give me an overview'].some(kw => lowerQ.substring(0, 30).includes(kw));
+    // Robust router: explicit slash command guarantees no false positives
+    const isSummaryReq = question.trim().toLowerCase() === '/summarize';
 
     try {
       if (isSummaryReq) {
