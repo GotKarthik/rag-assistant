@@ -1,0 +1,18 @@
+# Environment Variables
+.env
+.env.local
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.eslintcache
+
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/.pytest_cache/
+backend/data/uploads/
+backend/data/faiss_index/
+
+# System
+.DS_Store
